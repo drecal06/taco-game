@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://33ewopw3bjfr"]
+
+[ext_resource type="Script" path="res://taco.gd" id="1_6tnlm"]
+[ext_resource type="Texture2D" uid="uid://cpy646bx807n7" path="res://Assets/taco.png.png" id="1_oe30n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmcdu"]
+size = Vector2(21.75, 17)
+
+[node name="Taco" type="Area2D"]
+script = ExtResource("1_6tnlm")
+
+[node name="Taco_png" type="Sprite2D" parent="."]
+scale = Vector2(0.0188428, 0.0188428)
+texture = ExtResource("1_oe30n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.875, -0.5)
+shape = SubResource("RectangleShape2D_gmcdu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

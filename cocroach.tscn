@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://cs6xpj7to0o3p"]
+
+[ext_resource type="Texture2D" uid="uid://brqysvdollflw" path="res://Assets/cocroach (1).png" id="1_rojhp"]
+[ext_resource type="Script" path="res://cocroach.gd" id="1_uws4p"]
+[ext_resource type="AudioStream" uid="uid://ucd1ol7y41pp" path="res://Assets/La Cucaracha.mp3" id="3_d82r6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_612aw"]
+atlas = ExtResource("1_rojhp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vs08"]
+atlas = ExtResource("1_rojhp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgw35"]
+atlas = ExtResource("1_rojhp")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkvv4"]
+atlas = ExtResource("1_rojhp")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o5nlw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_612aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vs08")
+}],
+"loop": true,
+"name": &"left",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgw35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkvv4")
+}],
+"loop": true,
+"name": &"right",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eo6b6"]
+radius = 28.0
+height = 56.0
+
+[node name="Cocroach" type="Area2D"]
+script = ExtResource("1_uws4p")
+
+[node name="AnimationPlayer" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, -3)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_o5nlw")
+animation = &"right"
+frame_progress = 0.856256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_eo6b6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_d82r6")
+volume_db = -0.1
+autoplay = true
+max_distance = 1500.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
